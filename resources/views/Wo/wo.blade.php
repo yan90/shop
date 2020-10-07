@@ -6,11 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{url('save')}}" method="post">
-    用户名<input type="text"><br>
-    邮箱<input type="email" name="" id=""><br>
-    密码<input type="password" name="" id=""><br>
-    <input type="submit" value="添加">
+    <form action="{{url('/wo/save')}}" method="get">
+        @csrf
+        <h1>注册</h1>
+    用户名<input type="text" name="user_name"><br>
+    邮箱<input type="email" name="email" ><br>
+    密码<input type="password" name="password"><br>
+    <input type="submit" value="注册">
 
     </form>
     

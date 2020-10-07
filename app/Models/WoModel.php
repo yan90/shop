@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdminModel extends Model
+class WoModel extends Model
 {
     protected $table = "wo";
     protected $primaryKey = "uid";
