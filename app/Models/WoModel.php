@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WoModel extends Model
 {
-    protected $table = "wo";
+    protected $table = "p_users";
     protected $primaryKey = "uid";
     public $timestamps = false;
     protected $guarded = [];

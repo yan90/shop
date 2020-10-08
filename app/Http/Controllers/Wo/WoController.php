@@ -16,6 +16,7 @@ class WoController extends Controller
     public function save(Request $request){
       //执行注册
         $data=$request->except("_token");
+
         // dd($data);
         $data['reg_time'] = time();
         // dd($data);
@@ -35,14 +36,22 @@ class WoController extends Controller
     public function logindo2(Request $request){
         $data=$request->except("_token");
           //dd($data);
+          //最后登录的ip
         $ip=$_SERVER['REMOTE_ADDR'];
-        // print_r($ip);exit;
         $res_login=Womodel::where(['user_name'=>$data['user_name'],'password'=>$data['password']])->first();
-        //dd($res_login);exit;
+        //密码加密
         $data['password']=md5($data['password']);
         if($res_login){
             session('res',['user_name'=>$data['user_name']]);
-           $ip= Womodel::where(['uid'=>$res_login['uid']])->update(['last_ip'=>$ip]);
+            $last_login=$res_login['last_login']=time();
+            //修改最后登录时间
+            $last_login=Womodel::where(['uid'=>$res_login['uid']])->update(['last_login'=>$last_login]);
+            //登录次数
+            $login=$res_login['login_count']=$res_login->login_count+1;
+            //修改登录的ip
+            $ip= Womodel::where(['uid'=>$res_login['uid']])->update(['last_ip'=>$ip]);
+           //修改登录的次数
+            Womodel::where(['uid'=>$res_login['uid']])->update(['login_count'=>$login]);
         //    dd($ip);
             return redirect('/wo/aaa');
         }else{
