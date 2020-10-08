@@ -19,6 +19,7 @@ class WoController extends Controller
         // dd($data);
         $data['reg_time'] = time();
         // dd($data);
+       
         $Wo_model=new Womodel();
         $res=$Wo_model->insert($data);
         // dd($res);
@@ -33,15 +34,16 @@ class WoController extends Controller
     //执行登录
     public function logindo2(Request $request){
         $data=$request->except("_token");
-        //  dd($data);
-     
+          //dd($data);
+        $ip=$_SERVER['REMOTE_ADDR'];
+        // print_r($ip);exit;
         $res_login=Womodel::where(['user_name'=>$data['user_name'],'password'=>$data['password']])->first();
-        // dd($res_login);
-        // $reg_pwd=decrypt($res_login['password']);
+        //dd($res_login);exit;
         $data['password']=md5($data['password']);
-        //  dd($data);
         if($res_login){
-            session('res',['user_name'=>$data['user_name'],'login_count'=>$data['login_count']]);
+            session('res',['user_name'=>$data['user_name']]);
+           $ip= Womodel::where(['uid'=>$res_login['uid']])->update(['last_ip'=>$ip]);
+        //    dd($ip);
             return redirect('/wo/aaa');
         }else{
             return redirect('/wo/logindo')->with(['password'=>'密码错误']);
