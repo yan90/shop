@@ -6,9 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{url('/wo/logindo2')}}" method="get">
+    <form action="{{url('/wo/logindo2')}}" method="post">
+    @csrf
     <h1>登录</h1>
-    用户名：<input type="text" name="user_name"><br>
+    用户名：<input type="text" name="user_name"   placeholder="用户名/手机号/邮箱">
+    <br>
+       
     密码：<input type="password" name="password"><br>
     <input type="submit" value="登录">
     </form>

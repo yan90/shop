@@ -35,6 +35,13 @@ Route::get('/wo/save','Wo\WoController@save');
 //登录
 Route::get('/wo/logindo','Wo\WoController@logindo');
 //执行登录
-Route::get('/wo/logindo2','Wo\WoController@logindo2');
+Route::post('/wo/logindo2','Wo\WoController@logindo2');
 //登录后跳转
 Route::get('/wo/aaa','Wo\WoController@aaa');
+
+//商品 视图
+Route::get('/goods/index','Goods\GoodsController@index');
+//执行添加
+Route::post('/goods/save','Goods\GoodsController@save');
+//展示
+Route::get('/goods/list','Goods\GoodsController@list');

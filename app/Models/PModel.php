@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WoModel extends Model
+class PModel extends Model
 {
-    protected $table = "p_users";
-    protected $primaryKey = "uid";
+    protected $table = "p_p";
+    protected $primaryKey = "cat_id";
     public $timestamps = false;   //created_at  &updated_at
     protected $guarded = [];
 }

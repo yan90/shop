@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Womodel;
+use Illuminate\Support\Facades\Redis;
+
 class WoController extends Controller
 {
     public function login(){
@@ -13,14 +15,14 @@ class WoController extends Controller
         return view('wo/wo');
 
     }
+    //注册
     public function save(Request $request){
       //执行注册
         $data=$request->except("_token");
-
         // dd($data);
         $data['reg_time'] = time();
         // dd($data);
-       
+         $data['password']=md5($data['password']);
         $Wo_model=new Womodel();
         $res=$Wo_model->insert($data);
         // dd($res);
@@ -30,17 +32,24 @@ class WoController extends Controller
     }
     //登录
     public function logindo(Request $request){
+        // $num=Redis::incr('shop_couont');
+        // echo $num;exit;
+        // phpinfo();die;
         return view('wo/logindo');
     }
     //执行登录
     public function logindo2(Request $request){
+        // dd('11');
         $data=$request->except("_token");
-          //dd($data);
-          //最后登录的ip
+        // except为排除函数
+        $user_name=$request->input('user_name');
+        $user_password=$request->input('password');
+        //最后登录的ip
         $ip=$_SERVER['REMOTE_ADDR'];
-        $res_login=Womodel::where(['user_name'=>$data['user_name'],'password'=>$data['password']])->first();
-        //密码加密
-        $data['password']=md5($data['password']);
+        $res_login=Womodel::where(['user_name'=>$user_name])
+        ->orwhere(['email'=>$user_name])
+        ->orwhere(['tel'=>$user_name])
+        ->first();
         if($res_login){
             session('res',['user_name'=>$data['user_name']]);
             $last_login=$res_login['last_login']=time();
@@ -55,6 +64,8 @@ class WoController extends Controller
         //    dd($ip);
             return redirect('/wo/aaa');
         }else{
+            // $res=Womodel::where(['password'=>$user_password]);
+            // dd($res);
             return redirect('/wo/logindo')->with(['password'=>'密码错误']);
         }
     }

@@ -10,6 +10,7 @@
         @csrf
         <h1>注册</h1>
     用户名<input type="text" name="user_name"><br>
+    手机号：<input type="text" name="tel"><br>
     邮箱<input type="email" name="email" ><br>
     密码<input type="password" name="password"><br>
     <input type="submit" value="注册">
