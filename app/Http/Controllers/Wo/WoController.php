@@ -22,7 +22,7 @@ class WoController extends Controller
         $validator=Validator::make($request->all(),[
             'user_name'=>'required|unique:p_users',
             'password'=>'required',
-        ],
+        ],[
             'user_name.required'=>'用户名名称必填',
             'user_name.unique'=>'用户名名称已存在',
             'password.required'=>'密码不能为空',
@@ -142,8 +142,22 @@ class WoController extends Controller
     }
     //后台页面
     public function list(){
-
+        // echo storage_path('img/aaa.jpg');
         return view('wo/list');
+    }
+    //处理文件上传
+    public function aaa(Request $request){
+        $f=$request->file('img');
+        // echo '<pre>';print_r($f);echo'</pre>';
+        $name1=$f->getClientOriginalName();
+        $ext=$f->getClientOriginalExtension();
+        $size=$f->getSize();
+        //保存
+        $path='public/img';
+        $name='aaa.'.$ext;
+        // echo $name;die;
+        $res=$f->storeAs($path,$name);
+        var_dump($res);
     }
     //退出
     public function exit(Request $request){

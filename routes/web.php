@@ -40,6 +40,8 @@ Route::post('/wo/logindo2','Wo\WoController@logindo2');
 Route::get('/wo/list','Wo\WoController@list')->middleware("CheckLogin");
 //取出session
 Route::get('/wo/exit','Wo\WoController@exit');
+Route::post('/wo/aaa','Wo\WoController@aaa');
+
 //防非法
 
 //商品 视图
@@ -49,3 +51,15 @@ Route::post('/goods/save','Goods\GoodsController@save');
 //展示
 Route::get('/goods/list','Goods\GoodsController@list');
 
+Route::post('/wx','TextController@checkSignature');  //接口微信
+Route::get('/wx/token','TextController@token');  //access_token
+
+Route::get('/custom','TextController@custom');  //自定义菜单
+
+//TEST 路由分组
+//Route::prefix('/text')get()->group(function (){
+//
+//});
+Route::get('getweather','TextController@getweather');
+Route::get('/guzzle',"TextController@guzzle");  //guzzle 测试  GET
+Route::get('/guzzle2',"TextController@guzzle2");  //guzzle 测试  POST
