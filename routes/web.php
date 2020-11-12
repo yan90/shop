@@ -51,6 +51,7 @@ Route::post('/goods/save','Goods\GoodsController@save');
 //展示
 Route::get('/goods/list','Goods\GoodsController@list');
 
+//微信
 Route::post('/wx','TextController@checkSignature');  //接口微信
 Route::get('/wx/token','TextController@token');  //access_token
 
